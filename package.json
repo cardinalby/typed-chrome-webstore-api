@@ -1,0 +1,49 @@
+{
+  "name": "typed-chrome-webstore-api",
+  "version": "0.1.0",
+  "description": "Typed Chrome Webstore API to upload/publish extensions",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cardinalby/typed-chrome-webstore-api.git"
+  },
+  "homepage": "https://github.com/cardinalby/typed-chrome-webstore-api.git",
+  "keywords": [
+    "raii",
+    "scope",
+    "decorator",
+    "IDisposable",
+    "destroy",
+    "dispose",
+    "stack",
+    "ts"
+  ],
+  "author": "cardinalby",
+  "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "got": "^9.6.0"
+  },
+  "devDependencies": {
+    "@types/got": "^9.4.1",
+    "prettier": "^1.16.3",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  }
+}
