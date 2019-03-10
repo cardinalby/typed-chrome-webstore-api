@@ -1,4 +1,4 @@
-import got = require('got');
+import * as got from 'got';
 import * as consts from './consts';
 
 export async function fetchToken(clientId: string, clientSecret: string, refreshToken: string) {

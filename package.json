@@ -1,6 +1,6 @@
 {
   "name": "typed-chrome-webstore-api",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "description": "Typed Chrome Webstore API to upload/publish extensions",
   "main": "dist/index.js",
   "engines": {
@@ -12,14 +12,15 @@
   },
   "homepage": "https://github.com/cardinalby/typed-chrome-webstore-api",
   "keywords": [
-    "raii",
-    "scope",
-    "decorator",
-    "IDisposable",
-    "destroy",
-    "dispose",
-    "stack",
-    "ts"
+    "chrome",
+    "webstore",
+    "api",
+    "extension",
+    "webextension",
+    "upload",
+    "publish",
+    "download",
+    "crx"
   ],
   "author": "cardinalby",
   "license": "MIT",

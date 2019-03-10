@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/cardinalby/typed-chrome-webstore-api.svg?branch=master)](https://travis-ci.com/cardinalby/typed-chrome-webstore-api)
 ### Introduction
-Typed Chrome Webstore API to upload/publish extensions
+Typed Chrome Webstore API to upload/publish extensions and downloading crx file
 ### Installation
 `npm install typed-chrome-webstore-api`
 ### How to use   
@@ -53,5 +53,18 @@ Then we successfully published a new one with version = '1.20.0' (status = 'OK')
 'get upload' request returns version '1.20.0' after it. But this version is still in publishing progress
 Now we are publishing '1.30.0' but 'publish' and request fails with 500 error, but (!) actually
 Our version have been accepted, and after some time out extension increases it's version to '1.30.0'!
+
+##### Download extension crx
+This feature is experimental because of API is not documented
+```js
+// A bit ugly, looks better if you use TypeScript :)
+const downloadCrx = require('typed-chrome-webstore-api').DownloadCrx.downloadCrx;
+const fs = require('fs');
+
+const fstream = fs.createWriteStream('file.crx');
+const readStream = await downloadCrx('extensionId');
+readStream.pipe(fstream);
+```
+`downloadCrx()` also accepts additional options, look at `downloadCrx.d.ts` file for details
 ### Licence
 MIT License

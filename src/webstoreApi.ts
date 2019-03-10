@@ -1,5 +1,4 @@
-import got = require('got');
-import { GotFn } from 'got';
+import * as got from 'got';
 import { Readable } from 'stream';
 import * as consts from './consts';
 
@@ -20,7 +19,7 @@ export class WebstoreApi {
     public async upload(readStream: Buffer | Readable, appId?: string): Promise<consts.IWebstoreResource> {
         const url = appId ? consts.urls.uploadPut(appId) : consts.urls.uploadPost();
 
-        const action: GotFn = appId ? got.put.bind(got) : got.post.bind(got);
+        const action: got.GotFn = appId ? got.put.bind(got) : got.post.bind(got);
 
         const result = await action(url, {
             headers: this.getHeaders(),
