@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cardinalby/typed-chrome-webstore-api.git"
+    "url": "https://github.com/cardinalby/typed-chrome-webstore-api"
   },
-  "homepage": "https://github.com/cardinalby/typed-chrome-webstore-api.git",
+  "homepage": "https://github.com/cardinalby/typed-chrome-webstore-api",
   "keywords": [
     "raii",
     "scope",
