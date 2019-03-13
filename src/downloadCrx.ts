@@ -3,7 +3,7 @@
  * https://stackoverflow.com/questions/7184793/how-to-download-a-crx-file-from-the-chrome-web-store-for-a-given-id
  */
 
-import * as got from 'got';
+import axios from 'axios';
 import { Readable } from 'stream';
 
 export namespace DownloadCrx {
@@ -82,19 +82,13 @@ export namespace DownloadCrx {
         acceptFormat: Array<CrxAcceptFormat | string> = [CrxAcceptFormat.CRX2, CrxAcceptFormat.CRX3],
         platform?: IPlatformRequest
     ): Promise<Readable> {
-        return new Promise((resolve, reject) => {
-            got
-                .stream(
-                    getUrl(extensionId, prodVersion, acceptFormat, platform),
-                    { throwHttpErrors: false }
-                )
-                .once('response', response => {
-                    if (response.statusCode === 200) {
-                        resolve(response);
-                    } else {
-                        reject(new Error(`Server answered with ${response.statusCode} ${response.statusMessage}`));
-                    }
-                })
-        });
+        const response = await axios.get(
+            getUrl(extensionId, prodVersion, acceptFormat, platform),
+            {
+                responseType: 'stream',
+                validateStatus: status => status === 200
+            }
+        );
+        return response.data as Readable;
     }
 }

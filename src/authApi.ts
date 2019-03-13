@@ -1,16 +1,19 @@
-import * as got from 'got';
+import axios from 'axios';
 import * as consts from './consts';
 
 export async function fetchToken(clientId: string, clientSecret: string, refreshToken: string) {
-    const result = await got.post(consts.urls.refreshTokenPost(), {
-        body: {
+    const result = await axios.post(
+        consts.urls.refreshTokenPost(),
+        {
             client_id: clientId,
             client_secret: clientSecret,
             refresh_token: refreshToken,
             grant_type: 'refresh_token',
         },
-        json: true,
-    });
+        {
+            responseType: 'json',
+        }
+    );
 
-    return result.body.access_token;
+    return result.data.access_token;
 }

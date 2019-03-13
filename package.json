@@ -1,6 +1,6 @@
 {
   "name": "typed-chrome-webstore-api",
-  "version": "0.2.2",
+  "version": "0.3.2",
   "description": "Typed Chrome Webstore API to upload/publish extensions",
   "main": "dist/index.js",
   "engines": {
@@ -28,10 +28,11 @@
     "dist/**/*"
   ],
   "dependencies": {
-    "got": "^9.6.0"
+    "axios": "^0.18.0"
   },
   "devDependencies": {
-    "@types/got": "^9.4.1",
+    "@types/node": "^11.11.3",
+    "@types/axios": "^0.14.0",
     "prettier": "^1.16.3",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",

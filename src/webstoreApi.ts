@@ -1,13 +1,15 @@
-import * as got from 'got';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Readable } from 'stream';
 import * as consts from './consts';
 
 // noinspection JSUnusedGlobalSymbols
 export class WebstoreApi {
     protected _token: string;
+    protected readonly _client: AxiosInstance;
 
-    constructor(token: string) {
+    constructor(token: string, axiosConfig?: AxiosRequestConfig) {
         this._token = token;
+        this._client = axios.create(axiosConfig);
     }
 
     // noinspection JSUnusedGlobalSymbols
@@ -19,24 +21,27 @@ export class WebstoreApi {
     public async upload(readStream: Buffer | Readable, appId?: string): Promise<consts.IWebstoreResource> {
         const url = appId ? consts.urls.uploadPut(appId) : consts.urls.uploadPost();
 
-        const action: got.GotFn = appId ? got.put.bind(got) : got.post.bind(got);
-
-        const result = await action(url, {
+        const result = await this._client.request({
+            url,
+            method: appId ? 'PUT' : 'POST',
             headers: this.getHeaders(),
-            body: readStream
+            responseType: 'json',
+            data: readStream
         });
 
-        return JSON.parse(result.body);
+        return result.data;
     }
 
     // noinspection JSUnusedGlobalSymbols
     public async getUpload(appId: string): Promise<consts.IWebstoreResource> {
-        const result = await got.get(consts.urls.uploadGet(appId), {
-            headers: this.getHeaders(),
-            json: true,
-        });
+        const result = await this._client.get(
+            consts.urls.uploadGet(appId),
+            {
+                headers: this.getHeaders(),
+                responseType: 'json',
+            });
 
-        return result.body;
+        return result.data;
     }
 
     // noinspection JSUnusedGlobalSymbols
@@ -44,17 +49,19 @@ export class WebstoreApi {
         appId: string,
         target: consts.PublishTarget | string = consts.PublishTarget.DEFAULT
     ): Promise<consts.IPublishResponse> {
-        const result = await got.post(consts.urls.publishPost(appId, target), {
-            headers: this.getHeaders(),
-            json: true,
-        });
+        const result = await this._client.post(
+            consts.urls.publishPost(appId, target), undefined,
+            {
+                responseType: 'json',
+                headers: this.getHeaders()
+            });
 
-        return result.body;
+        return result.data;
     }
 
     protected getHeaders(): { [k: string]: string } {
         return {
-            Authorization: `Bearer ${this._token}`,
+            'Authorization': `Bearer ${this._token}`,
             'x-goog-api-version': '2',
         };
     }
