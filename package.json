@@ -1,6 +1,6 @@
 {
   "name": "typed-chrome-webstore-api",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Typed Chrome Webstore API to upload/publish extensions",
   "main": "dist/index.js",
   "engines": {

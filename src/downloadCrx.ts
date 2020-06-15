@@ -79,7 +79,7 @@ export namespace DownloadCrx {
     export async function downloadCrx(
         extensionId: string,
         prodVersion: string = '72.0.3626.121',
-        acceptFormat: Array<CrxAcceptFormat | string> = [CrxAcceptFormat.CRX2, CrxAcceptFormat.CRX3],
+        acceptFormat: (CrxAcceptFormat | string)[] = [CrxAcceptFormat.CRX2, CrxAcceptFormat.CRX3],
         platform?: IPlatformRequest
     ): Promise<Readable> {
         const response = await axios.get(
