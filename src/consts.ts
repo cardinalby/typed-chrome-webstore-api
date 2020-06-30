@@ -29,6 +29,18 @@ export const urls = {
             `${encodeURIComponent(id)}/publish?publishTarget=${encodeURIComponent(target)}`
         );
     },
+
+    licensesGet: (appId: string, userId: string): string => {
+        return `${GOOGLE_APIS_URL}/licenses/${encodeURIComponent(appId)}/${encodeURIComponent(userId)}`;
+    },
+
+    userLicensesGet: (appId: string): string => {
+        return `${GOOGLE_APIS_URL}/${ITEMS_API}/userlicenses/${encodeURIComponent(appId)}`;
+    },
+
+    paymentsGet: (id: string): string => {
+        return `${GOOGLE_APIS_URL}/${ITEMS_API}/items/${encodeURIComponent(id)}/payments`;
+    },
 };
 
 export enum UploadState {
@@ -66,7 +78,7 @@ export interface IWebstoreResource {
     /**
      * Not documented, exists in 'get' response. Semver version
      */
-    crxVersion?: string
+    crxVersion?: string;
 
     /**
      * Detail human-readable status of the operation, in English only.
@@ -104,4 +116,113 @@ export interface IPublishResponse {
 
     /** Detailed human-comprehensible explanation of the status code above */
     statusDetail: string[];
+}
+
+export const enum LicenseAccessLevelEnum {
+    FREE_TRIAL = 'FREE_TRIAL',
+    FULL = 'FULL',
+}
+
+/**
+ * @see https://developer.chrome.com/webstore/webstore_api/licenses#resource
+ */
+export interface ILicensesResponse {
+    /**
+     * Identifies this resource as a license. Value: the fixed string
+     */
+    kind: 'chromewebstore#license';
+
+    /**
+     * This value is a concatenation of the appId and userId seperated by a forward slash, for example: ekjjfhlnedeokeakcddlnockkdiacakf/8098347.
+     */
+    id: string;
+
+    /**
+     * Chrome Web Store app ID. Get the app ID from the Chrome Developer Dashboard after you upload your app for the first time.
+     */
+    appId: string;
+
+    /**
+     * OpenID URL for the user's Google Account.
+     */
+    userId: string;
+
+    result: 'YES' | 'NO';
+
+    accessLevel: LicenseAccessLevelEnum;
+
+    /**
+     * Once you've got the response, cache is only valid for the max number of seconds.
+     */
+    maxAgeSecs: number;
+}
+
+/**
+ * @see https://developer.chrome.com/webstore/webstore_api/userLicenses#resource
+ */
+export interface IUserLicensesResponse {
+    /**
+     * Identifies this resource as a license. Value: the fixed string
+     */
+    kind: 'chromewebstore#userLicense.';
+
+    /**
+     * The ID of the item to query for in-app products.
+     */
+    itemId: string;
+
+    /**
+     * Creation time of license. Number of milliseconds.
+     */
+    createdTime: number;
+
+    /**
+     * TRUE = User has license. FALSE = User does not have license.
+     */
+    result: boolean;
+
+    accessLevel: LicenseAccessLevelEnum;
+
+    /**
+     * Time that results can be cached.
+     */
+    maxAgeSecs: number;
+}
+
+export const enum PaymentStateEnum {
+    ACTIVE = 'ACTIVE',
+    PAYMENT_DECLINED = 'PAYMENT_DECLINED',
+    EXPIRED = 'EXPIRED',
+    CANCELLED = 'CANCELLED',
+    REJECTED = 'REJECTED',
+    PENDING = 'PENDING',
+    CANCELLED_BY_DEVELOPER = 'CANCELLED_BY_DEVELOPER',
+    DISABLED = 'DISABLED',
+}
+
+/**
+ * @see https://developer.chrome.com/webstore/webstore_api/payments#resource
+ */
+export interface IPaymentsResponse {
+    /**
+     * Static string value is always "chromewebstore#payment".
+     */
+    kind: 'chromewebstore#payment';
+
+    /**
+     * 	The ID of the item to query for in-app products.
+     */
+    itemId: string;
+
+    /**
+     * The in-app product ID.
+     */
+    sku: string;
+
+    /**
+     * Time of the creation of the payment.
+     */
+    createdTime: number;
+
+    state: PaymentStateEnum;
 }

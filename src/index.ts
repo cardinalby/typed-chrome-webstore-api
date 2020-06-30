@@ -5,7 +5,12 @@ export {
     IPublishResponse,
     PublishStatus,
     UploadState,
-    IItemErrorEntry
+    IItemErrorEntry,
+    ILicensesResponse,
+    IPaymentsResponse,
+    IUserLicensesResponse,
+    LicenseAccessLevelEnum,
+    PaymentStateEnum,
 } from './consts';
 export { WebstoreApi } from './webstoreApi';
 export * from './downloadCrx';

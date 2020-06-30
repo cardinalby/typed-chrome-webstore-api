@@ -11,7 +11,7 @@ export namespace DownloadCrx {
         extensionId: string,
         prodVersion: string,
         acceptFormat: string[],
-        platform?: IPlatformRequest
+        platform?: IPlatformRequest,
     ): string {
         let url = 'https://clients2.google.com/service/update2/crx?response=redirect';
         url += '&prodversion=' + encodeURIComponent(prodVersion);
@@ -34,7 +34,7 @@ export namespace DownloadCrx {
      */
     export enum CrxAcceptFormat {
         CRX2 = 'crx2',
-        CRX3 = 'crx3'
+        CRX3 = 'crx3',
     }
 
     /**
@@ -46,7 +46,7 @@ export namespace DownloadCrx {
         ANDROID = 'android',
         CROS = 'cros',
         OPEN_BSD = 'openbsd',
-        LINUX = 'Linux'
+        LINUX = 'Linux',
     }
 
     /**
@@ -55,7 +55,7 @@ export namespace DownloadCrx {
     export enum PlatformRequestArch {
         ARM = 'arm',
         X86_64 = 'x86-64',
-        X86_32 = 'x86-32'
+        X86_32 = 'x86-32',
     }
 
     /**
@@ -80,15 +80,12 @@ export namespace DownloadCrx {
         extensionId: string,
         prodVersion: string = '72.0.3626.121',
         acceptFormat: (CrxAcceptFormat | string)[] = [CrxAcceptFormat.CRX2, CrxAcceptFormat.CRX3],
-        platform?: IPlatformRequest
+        platform?: IPlatformRequest,
     ): Promise<Readable> {
-        const response = await axios.get(
-            getUrl(extensionId, prodVersion, acceptFormat, platform),
-            {
-                responseType: 'stream',
-                validateStatus: status => status === 200
-            }
-        );
+        const response = await axios.get(getUrl(extensionId, prodVersion, acceptFormat, platform), {
+            responseType: 'stream',
+            validateStatus: status => status === 200,
+        });
         return response.data as Readable;
     }
 }

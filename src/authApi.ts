@@ -12,7 +12,7 @@ export async function fetchToken(clientId: string, clientSecret: string, refresh
         },
         {
             responseType: 'json',
-        }
+        },
     );
 
     return result.data.access_token;
