@@ -54,6 +54,21 @@ Then we successfully published a new one with version = '1.20.0' (status = 'OK')
 Now we are publishing '1.30.0' but 'publish' and request fails with 500 error, but (!) actually
 Our version have been accepted, and after some time out extension increases it's version to '1.30.0'!
 
+##### Get Licenses
+```js
+const result = await api.getLicenses(appId, userId);
+```
+
+##### Get User Licenses
+```js
+const result = await api.getUserLicenses(appId);
+```
+
+##### Get Payments
+```js
+const result = await api.getPayments(itemId);
+```
+
 ##### Download extension crx
 This feature is experimental because of API is not documented
 ```js
