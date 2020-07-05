@@ -20,7 +20,7 @@ export class WebstoreApi {
     }
 
     // noinspection JSUnusedGlobalSymbols
-    public async upload(readStream: Buffer | Readable, appId?: string): Promise<consts.IWebstoreResource> {
+    public async upload(readStream: Buffer | Readable, appId?: string): Promise<WebstoreResource> {
         const url = appId ? consts.urls.uploadPut(appId) : consts.urls.uploadPost();
 
         const result = await this._client.request({
@@ -35,7 +35,7 @@ export class WebstoreApi {
     }
 
     // noinspection JSUnusedGlobalSymbols
-    public async getUpload(appId: string): Promise<consts.IWebstoreResource> {
+    public async getUpload(appId: string): Promise<WebstoreResource> {
         const result = await this._client.get(consts.urls.uploadGet(appId), {
             headers: this.getHeaders(),
             responseType: 'json',

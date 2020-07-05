@@ -13,4 +13,5 @@ export {
     PaymentStateEnum,
 } from './consts';
 export { WebstoreApi } from './webstoreApi';
+export { WebstoreResource } from './webstoreResource';
 export * from './downloadCrx';
