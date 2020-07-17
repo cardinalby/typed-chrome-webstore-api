@@ -12,6 +12,7 @@ export class ItemErrorEntry implements IItemErrorEntry {
     }
 
     isPendingReview(): boolean {
-        return this.error_code === 'CLIENT_ERROR' && this.error_detail.toLowerCase().indexOf('pending review') !== -1;
+        return (this.error_code === 'CLIENT_ERROR' || this.error_code === 'ITEM_NOT_UPDATABLE') &&
+            this.error_detail.toLowerCase().indexOf('pending review') !== -1;
     }
 }
